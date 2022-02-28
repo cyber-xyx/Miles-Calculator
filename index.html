@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Miles Calculator App</title>
+    <!--     CSS stylesheet -->
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Best credit card to use for each spend</h1>
+      <h2>Select the cards you hold</h2>
+      <form>
+        <form name="form1" id="form1">
+          Bank: <select name="bank" id="bank">
+            <option value="" selected="selected">Select bank</option>
+          </select>
+          <br><br>
+          Card: <select name="card" id="card">
+            <option value="" selected="selected">Please select Bank first</option>
+          </select>
+          <br><br>
+          <input type="submit" value="Add card to wallet" onclick=addCard()>
+        </form>
+
+      <h2>What you plan to spend on</h2> 
+      <form>
+        <form name="form2" id="form2">
+          Spend Type: <select name="spendtype" select id="spendType">
+            <option value="" selected="selected">Select type</option>
+          </select>
+          <br><br>
+          Spend Amount (S$): <input type="number" name="Spendamount" id="SpendAmount" value="" />
+          <br><br>
+          <input type="submit" value="submit">
+        </form>
+      
+      <!--       Container for both lists -->
+      <div class="lists">
+        <div id="cardWallets">
+          <h2>My wallet of Cards</h2>
+        </div>
+        <div id="spend">
+          <h2>What i plan to spend on</h2>
+        </div>
+       
+      </div>
+    <!--     now your code -->
+    <script src="app.js" charset="utf-8"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+/* Import some fonts */
+@import url('https://fonts.googleapis.com/css?family=Dosis|Nunito');
+
+/* add color variables */
+:root {
+  --candy-pink: #E7717D;
+  --grey-ice-blue: #C2CAD0;
+  --total-black: #0B0C10;
+  --aqua-strike: #66FCF1;
+  --calm-teal: #45A29E;
+}
+
+
+/* center the container and imply margins */
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+/* make the div with the id lists into a flex container */
+.lists {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* General style and a little bit responsive text  */
+body {
+  text-align: center;
+  font-family: monospace;
+}
+
+h1 {
+  font-size: 5vw;
+  color: var(--total-black);
+}
+
+h2{
+  font-size: 2vw;
+}
+
+/* Modernize buttons and input */
+
