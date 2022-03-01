@@ -55,8 +55,8 @@ var subjectObject = {
   }
   
   // To check what is stored in local storage
-  console.log(localStorage);
-  console.log(localStorage.getItem(2));
+  // console.log(localStorage);
+  // console.log(localStorage.getItem());
   
   const retrieveFromLocalStorage = () => {
     if (localStorage.length > 0) {
@@ -85,8 +85,8 @@ function addRow() {
 
   row.insertCell(0).innerHTML= SpendType.value
   row.insertCell(1).innerHTML= Amount.value;
-  row.insertCell(2).innerHTML= "x";
-  row.insertCell(3).innerHTML= "x";
+  row.insertCell(2).innerHTML= "x"; '<card to use, highest miles rate from list of cards>'
+  row.insertCell(3).innerHTML= "x"; '<# of miles, amount x row 2>'
   row.insertCell(4).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
 
 };
