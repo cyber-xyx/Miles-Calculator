@@ -2,17 +2,17 @@
 //data of credit cards in the universe
 const subjectObject = {
   DBS: {
-    "Card1": [1, 1.2, 4, "Lounge access"],
-    "Card2": [1.2, 1.4, 3, "None"],
-    "Card3": [1.6, 1.0, 2, "None"],
+    "Card1": [1, 1.2, 4],
+    "Card2": [1.2, 1.4, 3],
+    "Card3": [1.6, 1.0, 2],
   },
   UOB: {
-    "Card4": [1, 1.3, 4, "Lounge access"],
-    "Card5": [1, 1.2, 4, "Lounge access"],
+    "Card4": [1, 1.3, 4],
+    "Card5": [1, 1.2, 4],
   },
   OCBC: {
-    "Card6": [1, 1.2, 4, "Lounge access"],
-    "Card7": [1, 1.2, 4, "Lounge access"],
+    "Card6": [1, 1.2, 4],
+    "Card7": [1, 1.2, 4],
   },
 };
 
@@ -24,10 +24,10 @@ var spendType = {
 
 ////////////////////////////////////////////////////////////
 
-console.log(subjectObject); // Result: Array of 3 objects
-console.log(subjectObject["DBS"]); // Result: DBS card details
-console.log(subjectObject["UOB"]); // Result: UOB card details
-console.log(subjectObject["OCBC"]); // Result: OCBC card details
+// console.log(subjectObject); // Result: Array of 3 objects
+// console.log(subjectObject["DBS"]); // Result: DBS card details
+// console.log(subjectObject["UOB"]); // Result: UOB card details
+// console.log(subjectObject["OCBC"]); // Result: OCBC card details
 
 // // Array of 3 banks [DBS, UOB, OCBC]
 const allBanks = Object.keys(subjectObject);
@@ -40,17 +40,17 @@ const allCards = Object.values(clonedObject);
 
 // New combined object of all cards
 const allCardsCombined = Object.assign(...allCards);
-console.log(subjectObject);
-console.log(allCardsCombined);
-console.log(allCardsCombined['Card1']);
+// console.log(subjectObject);
+// console.log(allCardsCombined);
+// console.log(allCardsCombined['Card1']);
 
 // Array of all card names
 const allCardNames = Object.keys(allCardsCombined);
-console.log(allCardNames);
+// console.log(allCardNames);
 
 // Find the index of a particular card within the array of all card names
 const index = allCardNames.findIndex((item) => item === "Card1");
-console.log(index);
+// console.log(index);
 
 ////////////////////////////////////////////////////////////
 
@@ -108,12 +108,13 @@ const retrieveFromLocalStorage = () => {
       }
     }
 };
-retrieveFromLocalStorage();
+//retrieveFromLocalStorage();
 
 
 
 function addSpend(event) {
   event.preventDefault();
+  alert("OK");
   var spendType = document.getElementById("spendType");
   var spendAmount = document.getElementById("spendAmount");
   var table = document.getElementById("myTableData");
@@ -121,6 +122,7 @@ function addSpend(event) {
   var rowCount = table.rows.length;
   var row = table.insertRow(rowCount);
 
+  
   row.insertCell(0).innerHTML= spendType.value;
   row.insertCell(1).innerHTML= spendAmount.value;
   row.insertCell(2).innerHTML= "x"; 'card to use'
@@ -129,7 +131,6 @@ function addSpend(event) {
 };
 
 function deleteRow(obj) {
-    
   var index = obj.parentNode.parentNode.rowIndex;
   var table = document.getElementById("myTableData");
   table.deleteRow(index);
