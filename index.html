@@ -20,7 +20,7 @@
             <option value="" selected="selected">Please select Bank first</option>
           </select>
           <br><br>
-          <input type="submit" value="Add card to wallet" onclick="Javascript:addCard()">
+          <input type="submit" value="Add card to wallet" onclick=addCard()>
         </form>
 
       <h2>What you plan to spend on</h2> 
@@ -30,32 +30,34 @@
             <option value="" selected="selected">Select type</option>
           </select>
           <br><br>
-          Spend Amount (S$): <input type="number" name="SpendAmount" id="SpendAmount" value="" />
+          Spend Amount (S$): <input type="number" name="Spendamount" id="SpendAmount" value="" />
           <br><br>
-          <input type="submit" value="submit" onclick="Javascript:addRow()">
+          <input type="submit" value="Submit" onclick=addSpend()>
         </form>
       
       <!--       Container for both lists -->
       <div class="lists">
         <div id="cardWallets">
           <h2>My wallet of Cards</h2>
-          <ul>
+          <ul>  
           </ul>
         </div>
         <div id="spend">
-          <h2>Which card to use</h2>
+          <h2>Analysis</h2>
           <table id="myTableData"  border="1" cellpadding="2">
             <tr>
-                <td><b>Spend Type </b></td>
-                <td><b>Amount </b></td>
-                <td><b> Card to use </b></td>
-                <td><b> # of miles </b></td>
+                <td><b>Spend Type</b></td>
+                <td><b>Spend Amount</b></td>
+                <td><b>Card to use</b></td>
+                <td><b># of miles</b></td>
+                <td><b>delete button</b></td>
             </tr>
         </table>
-      
         </div>
+        
        
       </div>
+    <!--     now your code -->
     <script src="app.js" charset="utf-8"></script>
   </body>
 </html>
