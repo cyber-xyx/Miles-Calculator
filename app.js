@@ -91,30 +91,25 @@ function addCard() {
   // instead of just storing the name of the selected card ('selectedCard') in localStorage, you should try storing the card's full details
 };
 
-
-
-
 // To check what is stored in local storage
 console.log(localStorage);
 //console.log(localStorage.getItem(2));
 
 const retrieveFromLocalStorage = () => {
   if (localStorage.length > 0) {
-    for (var key in localStorage) {
-        let ul = document.querySelector("ul");
-        let li = document.createElement("li");
-        ul.append(li);
-        li.append(JSON.parse(key));
+    let keys = Object.keys(localStorage); // this line gets the keys from localStorage first
+    for (let key of keys) {
+      let ul = document.querySelector("ul");
+      let li = document.createElement("li");
+      ul.append(li);
+      li.append(JSON.parse(key));
       }
     }
 };
 retrieveFromLocalStorage();
 
-
-
 function addSpend(event) {
   event.preventDefault();
-  alert("OK");
   var spendType = document.getElementById("spendType");
   var spendAmount = document.getElementById("spendAmount");
   var table = document.getElementById("myTableData");
@@ -127,7 +122,10 @@ function addSpend(event) {
   row.insertCell(2).innerHTML= "x"; 'card to use'
   row.insertCell(3).innerHTML= "x"; '# of miles'
   row.insertCell(4).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
-};
+}; 
+
+const addSpendButton = document.querySelector("#addSpend"); // reference to Add Spend Button in HTML
+addSpendButton.addEventListener("click", addSpend); // adds event listener to button, on click run 'add Spend' function
 
 function deleteRow(obj) {
   var index = obj.parentNode.parentNode.rowIndex;
@@ -135,3 +133,5 @@ function deleteRow(obj) {
   table.deleteRow(index);
   
 }
+
+//check for highest miles rate for each category
