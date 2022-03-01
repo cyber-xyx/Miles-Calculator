@@ -46,33 +46,62 @@ var subjectObject = {
    }
   }
 
-//append cards you own to wallet
-function addCard() {
-  console.log("submitted");
-  var selectedCard = document.getElementById("card").value;
-  localStorage.setItem(selectedCard);
-  document.getElementById("cardWallets").append(localStorage.getItem(selectedCard));
-  console.log(selectedCard);
+  function addCard() {
+    console.log("submitted");
+    const selectedCard = document.querySelector("#card").value;
+    const idx = allCardNames.findIndex((item) => item === selectedCard) + 1;
+    localStorage.setItem(idx, JSON.stringify(selectedCard));
+    // instead of just storing the name of the selected card ('selectedCard') in localStorage, you should try storing the card's full details
+  }
+  
+  // To check what is stored in local storage
+  console.log(localStorage);
+  console.log(localStorage.getItem(2));
+  
+  const retrieveFromLocalStorage = () => {
+    if (localStorage.length > 0) {
+      for (let i = 0; i <= allCardNames.length; i++) {
+        if (localStorage.getItem(i) != null) {
+          let ul = document.querySelector("ul");
+          let li = document.createElement("li");
+          ul.append(li);
+          li.append(JSON.parse(localStorage.getItem(i)));
+        }
+      }
+    }
+  };
+  
+  retrieveFromLocalStorage();
+
+function addRow() {
+  //document.getElementById('f1').innerHTML = document.form2.spendAmount.value;
+  var SpendType = document.getElementById("spendType");
+  var Amount = document.getElementById("SpendAmount");
+  var cardSel = document.getElementById("card");
+  var table = document.getElementById("myTableData");
+
+  var rowCount = table.rows.length;
+  var row = table.insertRow(rowCount);
+
+  row.insertCell(0).innerHTML= SpendType.value
+  row.insertCell(1).innerHTML= Amount.value;
+  row.insertCell(2).innerHTML= "x";
+  row.insertCell(3).innerHTML= "x";
+  row.insertCell(4).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
 
 };
 
+function deleteRow(obj) {
+      
+  var index = obj.parentNode.parentNode.rowIndex;
+  var table = document.getElementById("myTableData");
+  table.deleteRow(index);
+  
+}
 
 
-// const inputBox = document.querySelector('#input-box');
-// const addItem = (e) => {
-//   e.preventDefault();
-//   const leftList = document.createElement("div");
-//   leftList.className = "to-do-item";
-//   const ul = document.createElement("ul");
-//   if (inputBox.value.length === 0){
-//       alert("Input Empty");
-//   }else {
-//       console.log("submitted");
-//       const inputValue = document.querySelector("#input-box").value;
-//       leftList.append(ul);
-//       ul.append(inputValue);
-//       document.querySelector("#to-do-list").append(leftList);
-//   }};
+
+
 
 
 
