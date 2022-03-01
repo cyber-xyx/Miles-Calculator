@@ -108,7 +108,7 @@ const retrieveFromLocalStorage = () => {
       }
     }
 };
-//retrieveFromLocalStorage();
+retrieveFromLocalStorage();
 
 
 
@@ -122,7 +122,6 @@ function addSpend(event) {
   var rowCount = table.rows.length;
   var row = table.insertRow(rowCount);
 
-  
   row.insertCell(0).innerHTML= spendType.value;
   row.insertCell(1).innerHTML= spendAmount.value;
   row.insertCell(2).innerHTML= "x"; 'card to use'
