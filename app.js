@@ -1,6 +1,7 @@
 "use strict";
 //data of credit cards in the universe
-const subjectObject = {
+
+var subjectObject = {
   DBS: {
     'Card1': [1],
     'Card2': [1.2],
@@ -13,12 +14,8 @@ const subjectObject = {
   OCBC: {
     'Card6': [1.4],
     'Card7': [1.01],
-  },
+  }
 };
-
-
-
-
 
 var spendType = {
   "Local Spend": ["Retail, Dining, Others"],
@@ -35,15 +32,15 @@ var spendType = {
 
 // // Array of 3 banks [DBS, UOB, OCBC]
 const allBanks = Object.keys(subjectObject);
-// console.log(allBanks);
+console.log(allBanks);
 
 // // Object of all cards, separated by banks (using deep clone of above Object)
 const clonedObject = JSON.parse(JSON.stringify(subjectObject));
 const allCards = Object.values(clonedObject);
-// console.log(allCards);
+console.log(allCards);
 
 // New combined object of all cards
-const allCardsCombined = Object.assign(...allCards);
+var allCardsCombined = Object.assign(...allCards);
 // console.log(subjectObject);
 console.log(allCardsCombined);
 // console.log(allCardsCombined['Card1']);
@@ -110,56 +107,103 @@ const retrieveFromLocalStorage = () => {
 };
 retrieveFromLocalStorage();
 
-function addSpend(event) {
-  event.preventDefault();
+function addSpend() {
   var spendType = document.getElementById("spendType");
   var spendAmount = document.getElementById("spendAmount");
   var table = document.getElementById("myTableData");
 
   var rowCount = table.rows.length;
   var row = table.insertRow(rowCount);
-
-//check for highest miles rate for each category
-
-  //convert list of cards into an array
-  var list = document.getElementById('ul').childNodes;
-  var cardRawArray = [];
-  for(var i=0;i < list.length; i++) {
-    var arrValue = list[i].innerHTML;
-    cardRawArray.push(arrValue);
-  }//remove undefined
-  var cardArrary = [];
-  cardRawArray.forEach(element => {
-    if (element !== undefined) {
-      JSON.parse(cardArrary.push(element));
-    }
-  });
-  console.log(cardArrary);
-
-  //filter allcardscombined forcardArrary into newList
-  let newList = Object.keys(allCardsCombined)
-  .filter((key) => cardArrary.includes(key))
-  .map((key) => {
-    return {[key]: allCardsCombined[key]}
-  })
-  .reduce((a, b) => Object.assign({}, a,b));
-
-console.log(newList);
-//Get card with highest miles rate and the respective miles rate
-  var maxMiles = Math.max.apply(null,Object.keys(newList).map(function(x){ return newList[x] }));
-  var maxCard = Object.keys(newList).filter(function(x){ return newList[x] == maxMiles; })[0];
-  var numberofMiles = maxMiles * spendAmount.value;
  
 //add values to table
   row.insertCell(0).innerHTML= spendType.value;
   row.insertCell(1).innerHTML= spendAmount.value;
+
+  function switchCardsCombined (){
+    var spendSelection = table.cell(j).innerHTML;
+    switch (spendSelection){
+      case "Local Spend":
+        allCardsCombined = {
+            'Card1': [1],
+            'Card2': [1.2],
+            'Card3': [1.6],
+            'Card4': [1.1],
+            'Card5': [1.3],
+            'Card6': [1.4],
+            'Card7': [1.01],
+          }
+        break;
+      case "Overseas Spend":
+        allCardsCombined = {
+          'Card1': [2],
+          'Card2': [2.2],
+          'Card3': [2.0],
+          'Card4': [2.1],
+          'Card5': [2.3],
+          'Card6': [2.4],
+          'Card7': [2.61],
+        };
+        break;
+        case "Online Spend":
+          allCardsCombined = { 
+            'Card1': [3],
+            'Card2': [3.2],
+            'Card3': [2.6],
+            'Card4': [3.1],
+            'Card5': [3.3],
+            'Card6': [3.4],
+            'Card7': [3.01],
+          }
+    };
+  }
+    //check for highest miles rate for each category
+  //var allCardsCombined;
+  
+    //convert list of cards into an array
+    var list = document.getElementById('ul').childNodes;
+    var cardRawArray = [];
+    for(var i=0;i < list.length; i++) {
+      var arrValue = list[i].innerHTML;
+      cardRawArray.push(arrValue);
+    }//remove undefined
+    var cardArrary = [];
+    cardRawArray.forEach(element => {
+      if (element !== undefined) {
+        JSON.parse(cardArrary.push(element));
+      }
+    });
+    console.log(cardArrary);
+  
+    //filter allcardscombined forcardArrary into newList
+    let newList = Object.keys(allCardsCombined)
+    .filter((key) => cardArrary.includes(key))
+    .map((key) => {
+      return {[key]: allCardsCombined[key]}
+    })
+    .reduce((a, b) => Object.assign({}, a,b));
+  
+  console.log(newList);
+  //Get card with highest miles rate and the respective miles rate
+    var maxMiles = Math.max.apply(null,Object.keys(newList).map(function(x){ return newList[x] }));
+    var maxCard = Object.keys(newList).filter(function(x){ return newList[x] == maxMiles; })[0];
+    var numberofMiles = maxMiles * spendAmount.value;
+  
+    console.log(maxCard);
+    console.log(maxMiles);
+
+
   row.insertCell(2).innerHTML= maxCard;
   row.insertCell(3).innerHTML= numberofMiles;
   row.insertCell(4).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
-}; 
+  }
+; 
 
 const addSpendButton = document.querySelector("#addSpend"); // reference to Add Spend Button in HTML
-addSpendButton.addEventListener("click", addSpend); // adds event listener to button, on click run 'add Spend' function
+addSpendButton.addEventListener("click",addSpend)
+// adds event listener to button, on click run 'add Spend' and Cardscombined function
+
+
+
 
 function deleteRow(obj) {
   var index = obj.parentNode.parentNode.rowIndex;
@@ -167,19 +211,3 @@ function deleteRow(obj) {
   table.deleteRow(index);
   
 }
-
-
-
-
-
-
-
-
-
-
-  //   var newList = [];
-//   for(var j = 0 ; j < allCardsCombined.length ; j++){
-//   if(cardArrary.indexOf(allCardsCombined[j].key) > -1){
-//   newList.push(allCardsCombined[j]);
-//  };
-// } 
