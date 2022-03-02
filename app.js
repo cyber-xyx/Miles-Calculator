@@ -119,8 +119,13 @@ function addSpend() {
   row.insertCell(0).innerHTML= spendType.value;
   row.insertCell(1).innerHTML= spendAmount.value;
 
+  const trs = document.getElementsByTagName("myTableData");
+  for (let i = 1; i < trs.length; i++) {
+    console.log(trs[i].children[0].innerHTML); //trs[i] is the current table row, .children[0] selects the first child
+  }
+
   function switchCardsCombined (){
-    var spendSelection = table.cell(j).innerHTML;
+    var spendSelection = trs[i].children[0].innerHTML;
     switch (spendSelection){
       case "Local Spend":
         allCardsCombined = {
@@ -190,7 +195,6 @@ function addSpend() {
   
     console.log(maxCard);
     console.log(maxMiles);
-
 
   row.insertCell(2).innerHTML= maxCard;
   row.insertCell(3).innerHTML= numberofMiles;
