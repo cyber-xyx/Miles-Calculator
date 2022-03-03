@@ -198,7 +198,6 @@ function addSpend() {
   row.insertCell(2).innerHTML= maxCard;
   row.insertCell(3).innerHTML= numberofMiles;
   row.insertCell(4).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
-  
 
 }
 ; 
