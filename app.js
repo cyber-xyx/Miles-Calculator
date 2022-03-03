@@ -3,17 +3,17 @@
 
 var subjectObject = {
   DBS: {
-    'Card1': [1],
-    'Card2': [1.2],
-    'Card3': [1.6],
+    'Altitude': [1.2],
+    'Insginia': [1.6],
+    'Women World Card': [0.4],
   },
   UOB: {
-    'Card4': [1.1],
-    'Card5': [1.3],
+    'Privi Miles': [1.2],
+    'Visa Infinite': [1.4],
   },
   OCBC: {
-    'Card6': [1.4],
-    'Card7': [1.01],
+    'Voyage Card': [1.3],
+    '90N': [1.2],
   }
 };
 
@@ -23,27 +23,19 @@ var spendType = {
   "Online Spend": ["Retail, Travel, Others"],
 };
 
-////////////////////////////////////////////////////////////
-
-// console.log(subjectObject); // Result: Array of 3 objects
-// console.log(subjectObject["DBS"]); // Result: DBS card details
-// console.log(subjectObject["UOB"]); // Result: UOB card details
-// console.log(subjectObject["OCBC"]); // Result: OCBC card details
+///////////////////////////Creating the Datasets/////////////////////////////////
 
 // // Array of 3 banks [DBS, UOB, OCBC]
 const allBanks = Object.keys(subjectObject);
-console.log(allBanks);
 
 // // Object of all cards, separated by banks (using deep clone of above Object)
 const clonedObject = JSON.parse(JSON.stringify(subjectObject));
 const allCards = Object.values(clonedObject);
-console.log(allCards);
 
 // New combined object of all cards
 var allCardsCombined = Object.assign(...allCards);
 // console.log(subjectObject);
-console.log(allCardsCombined);
-// console.log(allCardsCombined['Card1']);
+// console.log(allCardsCombined);
 
 // Array of all card names
 const allCardNames = Object.keys(allCardsCombined);
@@ -53,7 +45,7 @@ const allCardNames = Object.keys(allCardsCombined);
 const index = allCardNames.findIndex((item) => item === "Card1");
 // console.log(index);
 
-////////////////////////////////////////////////////////////
+////////////////////////////////Creating the Dropdowns/////////////////////////////////////////
 
 //adding cards you own to your wallet and spendtype and spendamount
 window.onload = function () {
@@ -81,7 +73,9 @@ window.onload = function () {
   }
 };
 
-//append cards you own to wallet
+////////////////////////////////Creating your wallet of cards/////////////////////////////////////////
+
+/////add cards selected to local storage
 function addCard() {
   const selectedCard = document.querySelector("#card").value;
   //const index = allCardNames.findIndex((item) => item === selectedCard) + 1;
@@ -90,10 +84,10 @@ function addCard() {
   // instead of just storing the name of the selected card ('selectedCard') in localStorage, you should try storing the card's full details
 };
 
-// To check what is stored in local storage
-console.log(localStorage);
-//console.log(localStorage.getItem(2));
+//// To check what is stored in local storage
+//console.log(localStorage);
 
+/////append cards you own to wallet
 const retrieveFromLocalStorage = () => {
   if (localStorage.length > 0) {
     let keys = Object.keys(localStorage); // this line gets the keys from localStorage first
@@ -107,6 +101,9 @@ const retrieveFromLocalStorage = () => {
 };
 retrieveFromLocalStorage();
 
+////////////////////////////////Creating your wallet of cards/////////////////////////////////////////
+
+/////Populating the Analysis table
 function addSpend() {
   var spendType = document.getElementById("spendType");
   var spendAmount = document.getElementById("spendAmount");
@@ -115,56 +112,57 @@ function addSpend() {
   var rowCount = table.rows.length;
   var row = table.insertRow(rowCount);
  
-//add values to table
+//adding values to table
   row.insertCell(0).innerHTML= spendType.value;
   row.insertCell(1).innerHTML= spendAmount.value;
 
-  const trs = document.getElementsByTagName("myTableData");
-  for (let i = 1; i < trs.length; i++) {
-    console.log(trs[i].children[0].innerHTML); //trs[i] is the current table row, .children[0] selects the first child
-  }
-
+//switching the database based on type of spend
   function switchCardsCombined (){
-    var spendSelection = trs[i].children[0].innerHTML;
+    
+    var spendSelection = document.getElementById("spendType").value
+    console.log(typeof spendSelection);
+  
     switch (spendSelection){
       case "Local Spend":
         allCardsCombined = {
-            'Card1': [1],
-            'Card2': [1.2],
-            'Card3': [1.6],
-            'Card4': [1.1],
-            'Card5': [1.3],
-            'Card6': [1.4],
-            'Card7': [1.01],
+          'Altitude': [1.2],
+          'Insginia': [1.6],
+          'Women World Card': [0.4],
+          'Privi Miles': [1.2],
+          'Visa Infinite': [1.4],
+          'Voyage Card': [1.3],
+          '90N': [1.2],
           }
         break;
       case "Overseas Spend":
         allCardsCombined = {
-          'Card1': [2],
-          'Card2': [2.2],
-          'Card3': [2.0],
-          'Card4': [2.1],
-          'Card5': [2.3],
-          'Card6': [2.4],
-          'Card7': [2.61],
+          'Altitude': [2.0],
+          'Insginia': [2.0],
+          'Women World Card': [1.2],
+          'Privi Miles': [2.4],
+          'Visa Infinite': [2],
+          'Voyage Card': [2.2],
+          '90N': [2.1],
         };
         break;
         case "Online Spend":
           allCardsCombined = { 
-            'Card1': [3],
-            'Card2': [3.2],
-            'Card3': [2.6],
-            'Card4': [3.1],
-            'Card5': [3.3],
-            'Card6': [3.4],
-            'Card7': [3.01],
+            'Altitude': [1.2],
+            'Insginia': [1.6],
+            'Women World Card': [4.0],
+            'Privi Miles': [1.4],
+            'Visa Infinite': [1.4],
+            'Voyage Card': [1.3],
+            '90N': [1.2],
           }
     };
-  }
-    //check for highest miles rate for each category
-  //var allCardsCombined;
   
-    //convert list of cards into an array
+    return allCardsCombined
+    
+  }
+  switchCardsCombined();
+  
+    //convert list of cards you have in wallet into an array
     var list = document.getElementById('ul').childNodes;
     var cardRawArray = [];
     for(var i=0;i < list.length; i++) {
@@ -188,7 +186,8 @@ function addSpend() {
     .reduce((a, b) => Object.assign({}, a,b));
   
   console.log(newList);
-  //Get card with highest miles rate and the respective miles rate
+
+  //Get card with highest miles rate and the respective miles rate from new list and database
     var maxMiles = Math.max.apply(null,Object.keys(newList).map(function(x){ return newList[x] }));
     var maxCard = Object.keys(newList).filter(function(x){ return newList[x] == maxMiles; })[0];
     var numberofMiles = maxMiles * spendAmount.value;
@@ -199,7 +198,9 @@ function addSpend() {
   row.insertCell(2).innerHTML= maxCard;
   row.insertCell(3).innerHTML= numberofMiles;
   row.insertCell(4).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
-  }
+  
+
+}
 ; 
 
 const addSpendButton = document.querySelector("#addSpend"); // reference to Add Spend Button in HTML
@@ -208,7 +209,7 @@ addSpendButton.addEventListener("click",addSpend)
 
 
 
-
+/////////add a delete row function
 function deleteRow(obj) {
   var index = obj.parentNode.parentNode.rowIndex;
   var table = document.getElementById("myTableData");
